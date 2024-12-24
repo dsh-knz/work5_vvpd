@@ -1,7 +1,7 @@
 import math
 
 # Константа для количества итераций
-ITERATIONS = 10
+iters = 10
 
 
 def cos_series(x):
@@ -34,7 +34,7 @@ def cos_series(x):
         raise ValueError("x должен быть числом")
 
     result = 0
-    for n in range(ITERATIONS):
+    for n in range(iters):
         term = ((-1) ** n) * (x ** (2 * n)) / math.factorial(2 * n)
         result += term
     return result
@@ -73,10 +73,52 @@ def ln_series(x):
         raise ValueError("x должен быть в пределах (-1, 1]")
 
     result = 0
-    for n in range(1, ITERATIONS + 1):
+    for n in range(1, iters + 1):
         term = (-1) ** (n + 1) * (x ** n) / n
         result += term
     return result
+
+
+def calc_power_series(x, m):
+    """
+    Вычисляет (1 - x)^m с использованием разложения в ряд Тейлора.
+
+    Короткое описание:
+    Реализация разложения (1 - x)^m = 1 - mx + m(m-1)x^2/2! - ... для заданного числа итераций.
+
+    Описание:
+    Функция вычисляет значение выражения (1 - x)^m с использованием ряда Тейлора.
+    Граничное условие: -1 < x < 1. Количество итераций задается константой iters.
+
+    Аргументы:
+    x (float): Значение, для которого нужно вычислить (1 - x)^m.
+    m (float): Степень, в которую возводится (1 - x).
+
+    Возвращаемое значение:
+    float: Приблизительное значение (1 - x)^m.
+
+    Исключения:
+    ValueError: Если x не в пределах (-1, 1).
+
+    Примеры использования:
+    #>>> calc_power_series(0.5, 2)
+    0.5625
+    #>>> calc_power_series(-0.5, 3)
+    1.875
+    """
+    if x <= -1 or x >= 1:
+        raise ValueError("x должен быть в пределах (-1, 1)")
+
+    result = 1.0
+    current_term = 1.0
+
+    for i in range(1, iters + 1):
+        current_term *= (-x * m) / i
+        result += current_term
+        m -= 1
+
+    return result
+
 
 
 def main():
@@ -91,7 +133,8 @@ def main():
         print("\nМеню:"
               "\n1. Вычислить cos(x)"
               "\n2. Вычислить ln(1-x)"
-              "\n3. Выйти")
+              "\n3. Вычислить (1-x)^m"
+              "\n4. Выйти")
         choice = input("\nВведите ваш выбор: ")
 
         if choice == "1":
@@ -106,7 +149,14 @@ def main():
                 print(f"ln(1-{x}) ≈ {ln_series(x)}")
             except ValueError as e:
                 print(f"Ошибка: {e}")
-        elif choice == "3":
+        elif choice == '3':
+            try:
+                x = float(input("Введите x (-1 < x < 1): "))
+                m = float(input("Введите m: "))
+                print(f"Результат: (1 - {x})^{m} ≈ {calc_power_series(x, m)}")
+            except ValueError as e:
+                print(f"Ошибка: {e}")
+        elif choice == "4":
             print("Выход из программы.")
             break
         else:
