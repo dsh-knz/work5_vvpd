@@ -92,7 +92,7 @@ def main():
               "\n1. Вычислить cos(x)"
               "\n2. Вычислить ln(1-x)"
               "\n3. Выйти")
-        choice = input("\nВведите ваш выбор (1/2/3): ")
+        choice = input("\nВведите ваш выбор: ")
 
         if choice == "1":
             try:
@@ -107,7 +107,7 @@ def main():
             except ValueError as e:
                 print(f"Ошибка: {e}")
         elif choice == "3":
-            print("Выход из программы. До свидания!")
+            print("Выход из программы.")
             break
         else:
             print("Некорректный выбор. Попробуйте снова.")
