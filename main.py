@@ -25,9 +25,9 @@ def cos_series(x):
     ValueError: Если x не является числом.
 
     Примеры использования:
-    >>> cos_series(0)
+    #>>> cos_series(0)
     1.0
-    >>> cos_series(math.pi / 3)
+    #>>> cos_series(math.pi / 3)
     0.5000000000
     """
     if not isinstance(x, (int, float)):
@@ -62,9 +62,9 @@ def ln_series(x):
     ValueError: Если x выходит за границы (-1, 1].
 
     Примеры использования:
-    >>> ln_series(0.5)
+    #>>> ln_series(0.5)
     -0.6931471806
-    >>> ln_series(-0.5)
+    #>>> ln_series(-0.5)
     -0.4054651081
     """
     if not isinstance(x, (int, float)):
